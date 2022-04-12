@@ -1,7 +1,9 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('places', {
+    return queryInterface.addColumn('users', 'password_digest', {
+      type: Sequelize.DataTypes.STRING, 
+    
       place_id: {
         allowNull: false,
         autoIncrement: true,
@@ -37,6 +39,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('places');
+    await queryInterface.removeColumn('users', 'password_digest');
   }
 };
