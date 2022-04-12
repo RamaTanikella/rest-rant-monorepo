@@ -1,6 +1,22 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    
+    return queryInterface.addColumn('users', 'role', {
+        type: Sequelize.DataTypes.ENUM,
+        values: [
+          'reviewer',
+          'admin',
+        ],
+        defaultValue: 'reviewer'
+      })
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.removeColumn('users', 'role')
+  }
+};
+
     await queryInterface.createTable('users', {
       user_id: {
         allowNull: false,
@@ -26,8 +42,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
-  },
+  
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('users');
   }
-};
